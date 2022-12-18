@@ -9,6 +9,14 @@ terraform {
   required_version = "~>1.0.0"
 }
 
+terraform {
+  backend "s3" {
+    bucket = "svast-aws-tf-state"
+    key    = "terraform/static-frontend-website.tfstate"
+    region = "us-east-1"
+  }
+}
+
 provider "aws" {
   region  = "us-east-1"
 }
