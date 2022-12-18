@@ -84,9 +84,9 @@ resource "aws_cloudfront_distribution" "frontend_bucket_distribution" {
   enabled             = true
   is_ipv6_enabled     = true
   default_root_object = "index.html"
-  comment             = "${var.prefix}-${each.value["website_name"]}.${var.r53_zone.domain_name}"
+  comment             = "${each.value["website_name"]}.${var.r53_zone.domain_name}"
   price_class         = "PriceClass_100"
-  aliases             = ["${var.prefix}-${each.value["website_name"]}.${var.r53_zone.domain_name}"]
+  aliases             = ["${each.value["website_name"]}.${var.r53_zone.domain_name}"]
   wait_for_deployment = true
 
   default_cache_behavior {
@@ -162,7 +162,7 @@ resource "aws_route53_record" "frontend_bucket_route53_record" {
   for_each = var.websites
 
   zone_id = data.aws_route53_zone.frontend_bucket_selected_dns_zone.zone_id
-  name    = "${var.prefix}-${each.value["website_name"]}.${var.r53_zone.domain_name}"
+  name    = "${each.value["website_name"]}.${var.r53_zone.domain_name}"
   type    = "A"
 
   alias {

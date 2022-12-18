@@ -1,7 +1,3 @@
-variable "prefix" {
-  type = string
-}
-
 variable "bucket_prefix" {
   type = string
 }

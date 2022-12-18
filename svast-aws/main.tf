@@ -26,7 +26,6 @@ provider "aws" {
 # - self renewing ssl certificate in us-east-1 region
 module "static-frontend-website" {
   source           = "git::https://github.com/lukasvast/terraform-modules.git//s3-static-website?ref=main"
-  prefix           = "www"
   bucket_prefix    = "web"
   websites         = var.websites
   r53_zone         = var.r53_zone
