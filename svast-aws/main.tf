@@ -1,0 +1,25 @@
+terraform {
+  required_providers {
+    aws = {
+      source  = "hashicorp/aws"
+      version = "4.2.0"
+    }
+  }
+
+  required_version = "~>1.0.0"
+}
+
+provider "aws" {
+  region  = "us-east-1"
+}
+
+# Prerequsite:
+# - r53 domain
+# - self renewing ssl certificate in us-east-1 region
+module "static-frontend-website" {
+  source           = "git::https://github.com/lukasvast/terraform-modules.git//s3-static-website?ref=main"
+  prefix           = "www"
+  bucket_prefix    = "web"
+  websites         = var.websites
+  r53_zone         = var.r53_zone
+}
