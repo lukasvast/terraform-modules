@@ -86,7 +86,7 @@ resource "aws_cloudfront_distribution" "frontend_bucket_distribution" {
   default_root_object = "index.html"
   comment             = "${each.value["website_name"]}.${var.r53_zone.domain_name}"
   price_class         = "PriceClass_100"
-  aliases             = ["${each.value["website_name"]}.${var.r53_zone.domain_name}"]
+  aliases             = each.value["enable_apex_domain"] == true ? ["${each.value["website_name"]}.${var.r53_zone.domain_name}", "${var.r53_zone.domain_name}"] : ["${each.value["website_name"]}.${var.r53_zone.domain_name}"]
   wait_for_deployment = true
 
   default_cache_behavior {

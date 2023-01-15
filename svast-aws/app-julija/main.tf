@@ -12,7 +12,7 @@ terraform {
 terraform {
   backend "s3" {
     bucket = "svast-aws-tf-state"
-    key    = "terraform/static-frontend-website.tfstate"
+    key    = "terraform/app-julija/static-frontend-website.tfstate"
     region = "us-east-1"
   }
 }
@@ -29,4 +29,20 @@ module "static-frontend-website" {
   bucket_prefix = "web"
   websites      = var.websites
   r53_zone      = var.r53_zone
+}
+
+# Zone APEX Alias
+data "aws_route53_zone" "frontend_bucket_selected_dns_zone" {
+  name = "${var.r53_zone.domain_name}."
+}
+resource "aws_route53_record" "www" {
+  zone_id = data.aws_route53_zone.frontend_bucket_selected_dns_zone.zone_id
+  name    = var.r53_zone.domain_name
+  type    = "A"
+
+  alias {
+    name                   = "www.${var.r53_zone.domain_name}"
+    zone_id                = data.aws_route53_zone.frontend_bucket_selected_dns_zone.zone_id
+    evaluate_target_health = true
+  }
 }
