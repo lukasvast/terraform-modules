@@ -9,11 +9,13 @@ variable "r53_zone" {
 
 variable "websites" {
   type = map(object({
-    website_name = string
+    website_name       = string
+    enable_apex_domain = bool
   }))
   default = {
     website-1 = {
-      website_name = "manuela-luka"
+      website_name       = "manuela-luka"
+      enable_apex_domain = false
     }
   }
 }
