@@ -28,7 +28,7 @@
     }
 </style>
 </head>
-<body>    
+<body>
     <div id="links">
         <a class="btn" style="background-color: #333333; color: #EEEEEE;" href="/" role="button">ALL</a>
         <a class="btn" style="background-color: #f6993f; color: #EEEEEE;" href="/app/1" role="button">APP 1</a>
@@ -46,7 +46,7 @@
         document.addEventListener('DOMContentLoaded', function() {
             var events = {{ events|tojson }};
             var calendarEl = document.getElementById('calendar');
-            var calendar = new FullCalendar.Calendar(calendarEl, {
+            var calendar = new FullCalendar.Calendar(calendarEl, {         
                 events: events,
                 headerToolbar: {
                     left: 'prev,next today',

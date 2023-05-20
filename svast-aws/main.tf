@@ -35,7 +35,7 @@ module "static-frontend-website" {
 module "booking-cal-app" {
   source    = "../lambda-server"
   app_name  = "booking-cal"
-  image_tag = "0.0.4"
+  image_tag = "0.0.5"
 }
 output "booking-cal-app-url" {
   value = module.booking-cal-app.base_url
