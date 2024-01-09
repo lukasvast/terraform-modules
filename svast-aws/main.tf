@@ -31,6 +31,16 @@ module "static-frontend-website" {
   r53_zone      = var.r53_zone
 }
 
+# Prerequsite:
+# - r53 domain
+# - self renewing ssl certificate in us-east-1 region
+module "elevate-agency-static-frontend-website" {
+  source        = "git::https://github.com/lukasvast/terraform-modules.git//s3-static-website?ref=main"
+  bucket_prefix = "web"
+  websites      = var.elevate_agency_websites
+  r53_zone      = var.elevate_agency_r53_zone
+}
+
 # Server App:
 module "booking-cal-app" {
   source    = "../lambda-server"
